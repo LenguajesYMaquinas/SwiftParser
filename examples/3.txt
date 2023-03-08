@@ -1,0 +1,58 @@
+import SwiftUI
+
+struct ContentView1: View {
+    var body: some View {
+        VStack{
+            View2()
+                .padding(.bottom, -138)
+                .padding(.left, -138)
+                .padding(.right, -138)
+            Image("Turtle Rock")
+                .padding(.top, -138)
+            HStack {
+                Text("Joshua Tree National Park")
+                    .font(.subheadline)
+                Spacer()
+                Text("California")
+                    .font(.subheadline)
+                    .foregroundColor(.green)
+            }
+            .foregroundColor(.green)
+        }
+        .padding()
+        VStack{
+            Text("Turtle Rock")
+                .font(.title)
+            HStack {
+                Text("Joshua Tree National Park")
+                    .font(.subheadline)
+                Spacer()
+                Text("California")
+                    .font(.subheadline)
+            }
+            HStack{
+                Text("Turtle Rock")
+                    .font(.title)
+                HStack {
+                    Text("Joshua Tree National Park")
+                        .font(.subheadline)
+                    Spacer()
+                    Text("California")
+                        .font(.subheadline)
+                        .padding(.bottom, -138)
+                        .padding(.left, -138)
+                        .padding(.right, -138)
+                }
+                .foregroundColor(.green)
+                .offset()
+                .offset(y:1000, x:-39)
+                .offset(x:1000, y:-39)
+                .offset(x:-39)
+                .offset(y:1000)
+                .padding(.bottom, -138)
+                .padding(.left, -138)
+                .padding(.right, -138)
+            }
+        }
+    }
+}
