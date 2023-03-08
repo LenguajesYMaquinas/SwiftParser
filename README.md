@@ -21,7 +21,6 @@ This program is a parser for a reduced structure defined with the sytax describe
 <ol>
 <li>Create a new java project on Eclipse</li>
 <li>Copy the files of this repository on the project created</li>
-<li>Opne the [ConsolaParsers.java](/src/lym/interfaz/ConsolaParsers.java) file and execute it</li>
 <li>Write code on the bottom section of the interface and click on the *Enviar* button</li>
 <li>If  the input was a valid program, the interface will return *OK*</li>
 </ol>
