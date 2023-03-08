@@ -1,0 +1,239 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = false;
+}
+
+PARSER_BEGIN(SwiftViews)
+package lym.languages;
+
+public class SwiftViews {
+  public static void main(String args []) throws ParseException
+  {
+    SwiftViews parser = new SwiftViews(System.in);
+    while (true)
+    {
+      try
+      {
+        switch (parser.one_line())
+        {
+          case 0 : 
+          System.out.println("OK.");
+          break;
+          case 1 : 
+          System.out.println("Goodbye.");
+          break;
+          default : 
+          break;
+        }
+      }
+      catch (Exception e)
+      {
+        System.out.println("NOK.");
+        System.out.println(e.getMessage());
+       // SwiftViews.ReInit(System.in);
+      }
+      catch (Error e)
+      {
+        System.out.println("Oops.");
+        System.out.println(e.getMessage());
+        break;
+      }
+    }
+  }
+}
+
+PARSER_END(SwiftViews)
+
+SKIP :
+{
+	  " "
+	| "\r"
+	| "\t"
+	| "\n"
+}
+
+TOKEN : /* RESERVED WORDS */
+{
+	  < STRUCT : "struct" >
+	| < VIEW : "View" >
+	| < VAR : "var" >
+	| < BODY : "body" >
+	| < SOME : "some" >
+	| < IMAGE : "Image" >
+	| < TEXT : "Text" >
+	| < SPACER : "Spacer" >
+	| < IMPORT : "import" >
+	| < SWIFTUI : "SwiftUI" >
+	| < VSTACK : "VStack" >
+	| < HSTACK : "HStack" >
+	| < OFFSET : "offset" >
+	| < PADDING : "padding" >
+	| < X : "x" >
+	| < Y : "y" >
+	| < TOP : "top" >
+	| < BOTTOM : "bottom" >
+	| < LEFT : "left" >
+	| < RIGHT : "right" >
+	| < FONT : "font" >
+	| < FOREGROUNDCOLOR : "foregroundColor" >
+}
+
+TOKEN : /* SYMBOLS */
+{
+	  < UNDERSCORE : "_" >
+	| < COLON : ":" >
+	| < LBRACKET : "{" >
+	| < RBRACKET : "}" >
+	| < LPARENTHESIS : "(" >
+	| < RPARENTHESIS : ")" >
+	| < SIMPLEQUOTATION : "'" >
+	| < DOUBLEQUOTATION : "\"" >
+	| < POINT : "." >
+	| < DASH : "-" >
+	| < COMMA : "," >
+}
+
+TOKEN /* ALPHANUMERICS */:
+{
+	  < DIGIT : [ "0"-"9" ] >
+	| < STRING: ["a"-"z","A"-"Z"](["a"-"z","A"-"Z", "0"-"9"])* >
+}
+
+int one_line() :
+{}
+{
+  structView()
+  {
+    return 0;
+  }
+|
+  {
+    return 1;
+  }
+}
+
+void structView() :
+{}
+{
+	< IMPORT > < SWIFTUI > (< STRUCT > (< STRING >)+ < COLON > < VIEW >  < LBRACKET > structBody() < RBRACKET >)+
+}
+
+void structBody() :
+{}
+{
+	< VAR > < BODY > < COLON > < SOME > < VIEW > < LBRACKET > (viewBody())+ < RBRACKET >
+}
+
+void viewBody() :
+{}
+{
+		(structViewCall())
+	| 	(imageComponent())
+	|	(textComponent())
+	| 	(spacerComponent())
+	| 	(structuringElement())
+}
+
+void structViewCall() :
+{}
+{
+	(< STRING >)+ < LPARENTHESIS > < RPARENTHESIS > (forImageAndViewMethod())*
+}
+
+void imageComponent() :
+{}
+{
+	< IMAGE > < LPARENTHESIS > (< SIMPLEQUOTATION > | < DOUBLEQUOTATION >) (< STRING >)+ (< SIMPLEQUOTATION > | < DOUBLEQUOTATION >) < RPARENTHESIS > (forImageAndViewMethod())*	
+}
+
+void textComponent() :
+{}
+{
+	< TEXT > < LPARENTHESIS > (< SIMPLEQUOTATION > | < DOUBLEQUOTATION >) (< STRING >)+ (< SIMPLEQUOTATION > | < DOUBLEQUOTATION >) < RPARENTHESIS >	(forTextAndStructuringElemenMethod())*
+}
+
+void spacerComponent() :
+{}
+{
+  	< SPACER > < LPARENTHESIS > < RPARENTHESIS >	
+}
+
+void structuringElement() :
+{}
+{
+	(< VSTACK > | < HSTACK >) < LBRACKET > (viewBody())+ < RBRACKET > (forTextAndStructuringElemenMethod())*
+}
+
+void forImageAndViewMethod() :
+{}
+{
+   	< POINT >
+  		(
+				offset()
+			| 	padding()
+		)
+}
+
+void forTextAndStructuringElemenMethod() :
+{}
+{
+  	< POINT >
+  		(
+				offset()
+			| 	padding()
+			| 	font()
+			| 	foregroundColor()
+		)
+}
+
+void offset() :
+{}
+{
+	< OFFSET > < LPARENTHESIS > [offsetArgument()] < RPARENTHESIS >
+}
+
+void offsetArgument() :
+{}
+{
+  		(< X > < COLON > number() [< COMMA > < Y > < COLON > number()])
+	|	(< Y > < COLON > number() [< COMMA > < X > < COLON > number()])
+}
+
+void number() :
+{}
+{
+	[< DASH >](< DIGIT >)+ 
+}
+
+void padding() :
+{}
+{
+	< PADDING > < LPARENTHESIS > [paddingArgument()] < RPARENTHESIS >
+}
+
+void paddingArgument() :
+{}
+{
+  	< POINT >
+  		(	  
+				(< TOP > < COMMA > number())
+			|	(< BOTTOM > < COMMA > number())
+			|	(< LEFT > < COMMA > number())
+			|	(< RIGHT > < COMMA > number())
+		)
+}
+
+void font() :
+{}
+{
+	< FONT > < LPARENTHESIS > < POINT > (< STRING >)+ < RPARENTHESIS >
+}
+
+void foregroundColor() :
+{}
+{
+	< FOREGROUNDCOLOR > < LPARENTHESIS > < POINT > (< STRING >)+ < RPARENTHESIS >
+}
