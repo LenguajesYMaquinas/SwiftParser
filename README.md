@@ -2,7 +2,7 @@
 
 ## About this
 
-This program is a parser for a reduced structure defined with the sytax described in the [statement](/statement.pdf) file.
+This program is a parser for a reduced structure defined with the sytax described in the [statement](/statement.pdf) file. The production rules are in EBNF grammar are on the [production-rules](/production-rules.pdf) file.
 
 ## Technologies
 
@@ -13,7 +13,8 @@ This program is a parser for a reduced structure defined with the sytax describe
 
   The important files are:
 
-- [SwiftViews.jj](/src/SwiftViews.jj): this is the  main file and contains the parser code.
+- [SwiftViews.jj](/src/SwiftViews.jj): this is the main file and contains the parser code.
+- [examples](/examples): this folder contains examples of valid codes.
 
 ## Execution
 
